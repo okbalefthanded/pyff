@@ -3,7 +3,7 @@ Pyff has moved from SVN to GIT!
 
 The old googlecode repository is no longer in use. The new repository is
 
-  http://github.com/venthur/pyff
+  http://github.com/bbci/pyff
 
 You can still use SVN in read-only mode with the git repository if you must,
 but I encourage you to use git instead!
@@ -20,7 +20,7 @@ Github also support limited support for accessing the GIT repository with SVN:
 
 Do the initial checkout:
 
-  svn checkout https://github.com/venthur/pyff/trunk pyff
+  svn checkout https://github.com/bbci/pyff/trunk pyff
 
 Basic work cycle:
 
