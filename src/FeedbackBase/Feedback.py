@@ -115,6 +115,24 @@ class Feedback(object):
         #self.tcp_markers_host = '127.0.0.1'
         #self.tcp_markers_port = 12344
 
+        self._has_lsl = False
+        try:
+            from pylsl import StreamInfo, StreamOutlet
+            self._has_lsl = True
+        except:
+            self.logger.warning("Could not import LabStreamingLayer. Ignore, if you don't want to send LSL Markers.")
+
+        if self._has_lsl:
+            try:
+                # name: PyffMarkerStream, content-type: Markers,
+                # channels: 1, irregular sampling rate,
+                # type: string, id: pyffmarker
+                info = StreamInfo('PyffMarkerStream', 'Markers', 1, 0, 'string', 'pyffmarker')
+                self._lsl_outlet = StreamOutlet(info)
+            except:
+                self.logger.error("Unable to Create LSL Marker Outlet, but LSL is installed.")
+                self._has_lsl = False
+
 
     #
     # Internal routines not inteded for overwriting
@@ -339,6 +357,22 @@ class Feedback(object):
         """
         self._udp_markers_socket.sendto(data + '\n',
                                         (self.udp_markers_host, self.udp_markers_port))
+
+
+    def send_lsl(self, data):
+        """Sends Marker via LSL.
+
+        Parameters
+        ----------
+        data : str
+            the marker
+
+        """
+        if not self._has_lsl:
+            logger.error("Lab Streaming Layer is not available, no markers have been sent!")
+            return
+        self._lsl_outlet.push_sample([data])
+
 
     #def send_tcp(self, data):
     #    """Sends marker via TCP/IP.
