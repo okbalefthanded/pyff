@@ -29,7 +29,11 @@ import cPickle as pickle
 from threading import Event, Timer
 import socket
 import json
-
+# using simpljson instead of json for python 2.5
+# try :
+#     import json
+# except ImportError :
+#     import simplejson as json
 
 class Feedback(object):
     """
@@ -89,6 +93,7 @@ class Feedback(object):
             try:
                 from ctypes import windll
                 self._pport = windll.inpout32
+
             except:
                 self.logger.warning("Could not load inpout32.dll. Please make sure it is located in the system32 directory")
         else:
@@ -110,6 +115,13 @@ class Feedback(object):
 
         self.udp_markers_host = '127.0.0.1'
         self.udp_markers_port = 12344
+
+        self.ov_tcp_tag_enable = False
+        self.ov_tcp_tag_host = '127.0.0.1'
+        self.ov_tcp_tag_port = 15361
+        self._ov_tcp_tag_socket = self._ov_tcp_tag_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print 'init base',self._ov_tcp_tag_socket
+
 
         #self.tcp_markers_enable = False
         #self.tcp_markers_host = '127.0.0.1'
@@ -183,6 +195,8 @@ class Feedback(object):
         You should not override this method, use on_play instead.
         """
         self._udp_markers_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+        # self.logger.info("Sending markers via TCP enabled")
         #if self.tcp_markers_enable:
         #    self.logger.info("Connecting to " + self.tcp_markers_host + ":" + str(self.tcp_markers_port))
         #    self._tcp_markers_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -230,6 +244,8 @@ class Feedback(object):
         Override this method to initialize everything you need before the
         feedback starts.
         """
+
+
         self.logger.debug("on_init not implemented yet!")
 
 
@@ -261,6 +277,7 @@ class Feedback(object):
         Override this method to stop your feedback. It should be possible to
         start again when receiving the :func:`on_start` event.
         """
+        self._ov_tcp_tag_socket.close()
         self.logger.debug("on_stop not implemented yet!")
 
 
@@ -369,10 +386,30 @@ class Feedback(object):
 
         """
         if not self._has_lsl:
-            logger.error("Lab Streaming Layer is not available, no markers have been sent!")
+            self.logger.error("Lab Streaming Layer is not available, no markers have been sent!")
+            # logger.error("Lab Streaming Layer is not available, no markers have been sent!")
             return
         self._lsl_outlet.push_sample([data])
 
+    """
+
+    """
+    def send_ov_tcp_tag(self, event):
+
+        # create the three pieces of the tag, padding, event_id and timestamp
+        padding = [0] * 8
+        event_id = list(self.to_byte(event, 8))
+        # send tag
+        self._ov_tcp_tag_socket.sendall(bytearray(padding + event_id + padding))
+
+    """
+    Used by send_ov_tcp_tag
+    """
+    # transform a value into an array of byte values in little-endian order.
+    def to_byte(self, value, length):
+        for x in range(length):
+            yield value % 256
+            value //= 256
 
     #def send_tcp(self, data):
     #    """Sends marker via TCP/IP.
