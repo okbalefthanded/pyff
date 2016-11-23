@@ -21,9 +21,7 @@
 
 
 import os
-
 import pygame
-
 from FeedbackBase.PygameFeedback import PygameFeedback
 
 
@@ -50,30 +48,30 @@ class TrivialPong(PygameFeedback):
         self.barrect = self.bar.get_rect()
 
     def play_tick(self):
-        width, height = self.screenSize
-        w_half = width / 2.
-        # move bar and ball
-        pos = w_half + w_half * self.val
-        self.barrect.center = pos, height - 20
-        self.ballrect = self.ballrect.move(self.speed)
-        # collision detection walls
-        if self.ballrect.left < 0 or self.ballrect.right > width:
+         width, height = self.screenSize
+         w_half = width / 2.
+         # move bar and ball
+         pos = w_half + w_half * self.val
+         self.barrect.center = pos, height - 20
+         self.ballrect = self.ballrect.move(self.speed)
+         #collision detection walls
+         if self.ballrect.left < 0 or self.ballrect.right > width:
             self.speed[0] = -self.speed[0]
-        if self.ballrect.top < 0 or self.ballrect.bottom > height:
+         if self.ballrect.top < 0 or self.ballrect.bottom > height:
             self.speed[1] = -self.speed[1]
-        if self.barrect.left < 0 or self.barrect.right > width:
+         if self.barrect.left < 0 or self.barrect.right > width:
             self.barspeed[0] = -self.barspeed[0]
-        if self.barrect.top < 0 or self.barrect.bottom > height:
+         if self.barrect.top < 0 or self.barrect.bottom > height:
             self.barspeed[1] = -self.barspeed[1]
         # collision detection for bar vs ball
-        if self.barrect.colliderect(self.ballrect):
+         if self.barrect.colliderect(self.ballrect):
             self.speed[0] = -self.speed[0]
             self.speed[1] = -self.speed[1]
         # update the screen
-        self.screen.fill(self.backgroundColor)
-        self.screen.blit(self.ball, self.ballrect)
-        self.screen.blit(self.bar, self.barrect)
-        pygame.display.flip()
+         self.screen.fill(self.backgroundColor)
+         self.screen.blit(self.ball, self.ballrect)
+         self.screen.blit(self.bar, self.barrect)
+         pygame.display.flip()
 
 
 if __name__ == "__main__":

@@ -51,7 +51,7 @@ class MainloopFeedback(Feedback):
     the class takes care of the typical steps needed to run a feedback with a
     mainloop, starting, pausing, stopping, quiting, etc.
 
-    While running it's internal mainloop it calls :func:`tick` repeatedly.
+    While running its internal mainloop it calls :func:`tick` repeatedly.
     Additionally it calls either :func:`play_tick` or :func:`pause_tick`
     repeatedly afterwards, depending if the Feedback is paused or not.
 

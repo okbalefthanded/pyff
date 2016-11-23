@@ -660,7 +660,7 @@ class CenterSpellerVE(VisualSpellerVE):
         self._ve_fixationpoint.set(on=False)
 
 if __name__ == '__main__':
-    fb = CenterSpeller()
+    fb = CenterSpellerVE()
     fb.on_init()
     fb.on_play()
 

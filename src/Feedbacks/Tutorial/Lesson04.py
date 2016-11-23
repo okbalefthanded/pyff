@@ -28,10 +28,13 @@ class Lesson04(Feedback):
         # this one is equivalent to:
         # self.myVariable = self._someVariable
         self.myVariable = data.get("someVariable")
-        print self.myVariable
+        print "on_interaction_event: ", self.myVariable
+        print data
+
+
         
     def on_control_event(self, data):
         # this one is equivalent to:
         # self.eegTuple = self._data
         self.eegTuple = data
-        print self.eegTuple
+        print "on_control_event",self.eegTuple

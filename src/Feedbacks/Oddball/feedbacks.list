@@ -4,3 +4,6 @@ MultiVisualOddball.MultiVisualOddball
 P300_Rectangle.P300_Rectangle
 Visual.VisualOddball.VisualOddball
 Visual.VisualOddballVE.VisualOddballVE
+Oddball.Auditory.AuditoryOddball
+Oddball.Tactile.TactileOddball
+Oddball.Visual.VisualOddball

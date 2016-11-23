@@ -228,6 +228,7 @@ class VisualSpellerVE(MainloopFeedback):
         self.logger.info("waiting %d seconds after play." % self.wait_after_start)
 
         ## send start trigger:
+
         self.send_parallel(marker.RUN_START)
         self.logger.info("[TRIGGER] %d" % marker.RUN_START)
 

@@ -48,8 +48,10 @@ class PluginController(object):
         for dir in plugindirs:
             if os.path.exists(dir):
                 sys.path.append(dir)
+
             else:
                 self.logger.warning("Path %s does not exist, ignoring it" % str(dir))
+
 
 
     def find_plugins(self):

@@ -355,6 +355,8 @@ class Feedback(object):
             the marker.
 
         """
+        #print data
+        #print self.udp_markers_host, self.udp_markers_port
         self._udp_markers_socket.sendto(data + '\n',
                                         (self.udp_markers_host, self.udp_markers_port))
 
@@ -369,7 +371,7 @@ class Feedback(object):
 
         """
         if not self._has_lsl:
-            logger.error("Lab Streaming Layer is not available, no markers have been sent!")
+            logging.logger.error("Lab Streaming Layer is not available, no markers have been sent!")
             return
         self._lsl_outlet.push_sample([data])
 

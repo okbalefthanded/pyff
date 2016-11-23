@@ -28,6 +28,7 @@
 
 
 import serial
+
 from threading import Timer
 
 
@@ -42,7 +43,10 @@ class SerialPort(object):
         baudrate : int
 
         """
+
+
         self.port = serial.Serial(port=port, baudrate=baudrate)
+
         self.trigger_reset_time = 0.01
         self.reset_timer = Timer(0, None)
 

@@ -24,6 +24,7 @@ from pandac.PandaModules import TextNode, PandaNode, NodePath
 from pandac.PandaModules import GeomVertexFormat, GeomVertexData, GeomVertexReader, GeomVertexWriter
 from pandac.PandaModules import Geom, GeomNode, GeomTrifans, GeomTristrips, GeomLines, PointLight, VBase4
 from direct.directbase import DirectStart
+
 global render, loader, base, taskMgr
 
 from GraphicComponentUtils import create_line, create_side

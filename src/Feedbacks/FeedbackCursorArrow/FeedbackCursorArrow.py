@@ -190,24 +190,33 @@ class FeedbackCursorArrow(PygameFeedback):
         tick method.
         """
         if self.pause:
+            # print "tick: Pause"
             self.pause_tick()
         elif self.hit or self.miss:
+            # print "tick: hit or miss"
             self.hit_miss_tick()
         elif self.gameover:
+            # print "tick: gameover"
             self.gameover_tick()
         elif self.countdown:
+            # print "tick: CountDown"
             self.countdown_tick()
         elif self.shortPause:
+            # print "tick: Short Pause"
             self.short_pause_tick()
         elif self.indicateGoal:
+            # print "tick: indicate goal"
             self.indicate_goal_tick()
         else:
+            # print "tick: Trial"
             self.trial_tick()
 
 
     def on_control_event(self, data):
         #self.logger.debug("on_control_event: %s" % str(data))
         self.f = data["data"][ - 1]
+        print 'control recieved : %s' %(self.f)
+
 
 
     def trial_tick(self):
@@ -215,7 +224,6 @@ class FeedbackCursorArrow(PygameFeedback):
         One tick of the trial loop.
         """
         self.trialElapsed += self.elapsed
-
         # Teste ob erster Tick im Trial
         if self.firstTickOfTrial:
             self.send_parallel(self.START_POSITION_CONTROL)
@@ -226,21 +234,16 @@ class FeedbackCursorArrow(PygameFeedback):
             self.nDampTicks = 0
             self.reset_punchline_color()
             self.cursorTransition = False
-
         # Teste ob zeit fuer alten Trial abgelaufen ist
         if self.trialElapsed >= self.durationPerTrial:
             self.check_for_hit_miss(); return
-
         # Calculate motion of cursor
         self.f = (self.targetDirection-0.5)*2   #TODO: remove HACK
-
         if not self.dampedMovement:
             v = self.f * self.v0
         else:
             v = self.damp_movement()
-
         self.pos += self.f * v
-
         # send marker if cursor hits the border for the first time
         if abs(self.pos)>self.s1 and not self.cursorTransition:
             self.cursorTransition = True
@@ -438,8 +441,10 @@ class FeedbackCursorArrow(PygameFeedback):
         elif direction==self.RIGHT:
             return punchline.get_rect(midtop=(self.screenWidth/2+newpos, 0))
         elif direction==self.UP:
+            print self.borderRect.left
             return punchline.get_rect(midleft=(self.borderRect.left,self.screenHeight/2-newpos))
         elif direction==self.DOWN:
+            print self.borderRect.left
             return punchline.get_rect(midleft=(self.borderRect.left,self.screenHeight/2+newpos))
 
     def reset_punchline_color(self):

@@ -42,6 +42,7 @@ class BciNetwork(object):
         :type port: integer
 
         """
+
         self.logger = logging.getLogger("BciNetwork-%s:%s" % (str(ip), str(port)))
         self.logger.debug("BciNetwork initialized.")
 

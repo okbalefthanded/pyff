@@ -18,10 +18,15 @@
 
 from FeedbackBase.Feedback import Feedback
 
+
 class Lesson06(Feedback):
     
     def on_init(self):
         self.logger.debug("Feedback successfully loaded.")
-    
+        #self.logger.warning('warning')
+        # self.logger.info('info')
+        #self.logger.error('error')
+        #self.logger.critical('critical')
+
     def on_quit(self):
         self.logger.debug("Feedback quit.")

@@ -25,9 +25,15 @@ from direct.showbase.DirectObject import DirectObject
 import direct.gui.OnscreenText as ost
 from direct.task import Task
 from direct.gui.OnscreenText import OnscreenText
-from pandac.PandaModules import TextNode, PandaNode, NodePath
-from pandac.PandaModules import GeomVertexFormat, GeomVertexData, GeomVertexReader, GeomVertexWriter
-from pandac.PandaModules import Geom, GeomNode, GeomTriangles, GeomTrifans, GeomTristrips, GeomVertexWriter, PointLight, VBase4
+
+#from pandac.PandaModules import TextNode, PandaNode, NodePath
+#from pandac.PandaModules import GeomVertexFormat, GeomVertexData, GeomVertexReader, GeomVertexWriter
+#from pandac.PandaModules import Geom, GeomNode, GeomTriangles, GeomTrifans, GeomTristrips, GeomVertexWriter, PointLight, VBase4
+
+from panda3d.core import TextNode, PandaNode, NodePath
+from panda3d.core import GeomVertexFormat, GeomVertexData, GeomVertexReader, GeomVertexWriter
+from panda3d.core import Geom, GeomNode, GeomTriangles, GeomTrifans, GeomTristrips, GeomVertexWriter, PointLight, VBase4
+
 #global render, loader, base
 
 
